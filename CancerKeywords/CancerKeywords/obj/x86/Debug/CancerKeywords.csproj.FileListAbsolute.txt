@@ -1,0 +1,10 @@
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\CancerKeywords.csprojResolveAssemblyReference.cache
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\CancerKeywords.exe
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\CancerKeywords.pdb
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\CancerKeywords.exe
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\CancerKeywords.pdb
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\StandardFont.xnb
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\BubbleTexture.xnb
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\CancerKeywords.csproj.GenerateResource.Cache
+H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\CancerKeywords.ControlForm.resources
