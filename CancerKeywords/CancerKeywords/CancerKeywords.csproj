@@ -76,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFetcher.cs" />
+    <Compile Include="AbstractViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbstractViewer.Designer.cs">
+      <DependentUpon>AbstractViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="BoundingCircle.cs" />
     <Compile Include="CancerBubble.cs" />
     <Compile Include="ControlForm.cs">
@@ -126,6 +132,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AbstractViewer.resx">
+      <DependentUpon>AbstractViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlForm.resx">
       <DependentUpon>ControlForm.cs</DependentUpon>
     </EmbeddedResource>

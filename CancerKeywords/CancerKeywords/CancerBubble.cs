@@ -4,26 +4,41 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace CancerKeywords
 {
-    class CancerBubble : TextBubble
+    class CancerBubble : TextBubble, IComparable
     {
         public TextBubble Anchor { get; set; }
         public int Distance { get; set; }
         public float Angle { get; set; }
         private const int MIN_SIZE = 20;
+        public List<int> abstractIDs { get; set; }
+        public bool Selected { get; set; }
 
         public CancerBubble(Texture2D texture, SpriteFont stdFont, string name, int distance, TextBubble anchor) : base(texture, stdFont)
         {
             Anchor = anchor;
             Distance = distance;
             Text = name;
+            abstractIDs = new List<int>();
 
             //Defaults
             Angle = 0.0f;
             Cases = 0;
             color = Color.White;
+            Selected = false;
+        }
+
+        /// <summary>
+        /// Adds a case to the bubble
+        /// </summary>
+        /// <param name="abstractID">pubmed ID of the abstract</param>
+        public void addCase(int abstractID)
+        {
+            abstractIDs.Add(abstractID);
+            base.Cases = abstractIDs.Count;
         }
 
         /// <summary>
@@ -126,6 +141,35 @@ namespace CancerKeywords
             {
                 Angle = Angle - amount;
             }
+        }
+
+        /// <summary>
+        /// Implementation of IComparable, sorts by number of cases
+        /// </summary>
+        /// <param name="otherBubble">another textbubble</param>
+        /// <returns></returns>
+        int IComparable.CompareTo(object otherBubble)
+        {
+            TextBubble otherCancerBubble = (TextBubble)otherBubble;
+
+            return otherCancerBubble.Cases - this.Cases;
+        }
+
+        /// <summary>
+        /// Draw function to be called from Draw in the XNA framework
+        /// </summary>
+        /// <param name="spriteBatch">spritebatch from XNA framework</param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+
+            if(Selected)
+            {
+                spriteBatch.Begin();
+                Primitives2D.DrawCircle(spriteBatch, getCenter(), Size / 2, 48, Color.Black, 1.5f);
+                spriteBatch.End();
+            }
+            
         }
     }
 }

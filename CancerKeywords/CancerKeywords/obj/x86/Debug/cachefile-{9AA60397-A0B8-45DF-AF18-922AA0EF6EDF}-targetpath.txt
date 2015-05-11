@@ -1,2 +1,3 @@
 Content\StandardFont.xnb
 Content\BubbleTexture.xnb
+Content\BubbleTexture2.xnb

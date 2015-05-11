@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace CancerKeywords
 {
@@ -13,6 +14,7 @@ namespace CancerKeywords
         private WebClient wc;
         public int LastID { get; set; }
         private string abstractText;
+        int[] currentIDs;
 
         public AbstractFetcher()
         {
@@ -32,7 +34,7 @@ namespace CancerKeywords
         }
 
         /// <summary>
-        /// Getter for abstractText
+        /// Returns the abstract text of all abstracts fetched as one big string
         /// </summary>
         /// <returns>The value currently stored as the abstract</returns>
         public string getAbstractText()
@@ -41,6 +43,28 @@ namespace CancerKeywords
         }
 
         /// <summary>
+        /// Returns the abstracts as a dictionary with pubmedID as key
+        /// </summary>
+        /// <returns>Dictionary of abstracts with PMID as key</returns>
+        public Dictionary<int, string> getAbstractKvP()
+        {
+            //Create the dictionary
+            Dictionary<int, string> results = new Dictionary<int, string>();
+
+            //Split all the abstracts
+            string[] abstractTexts = Regex.Split(abstractText, "\n\n\n");
+
+            //Get the PMID and add the abstract to the dictionary
+            for (int i = 0; i < abstractTexts.Length; i++ )
+            {
+                results.Add(currentIDs[i], abstractTexts[i]);
+            }
+
+            return results;
+
+        }
+        
+        /// <summary>
         /// Will attempt to fetch the abstract from an ID. When called, the fetcher will show as working
         /// until the abstract has been parsed.
         /// </summary>
@@ -48,6 +72,7 @@ namespace CancerKeywords
         public void fetchAbstract(int[] IDs)
         {
             isWorking = true;
+            currentIDs = IDs;
             string idString = "";
             
             for(int i = 0; i < IDs.Length; i++)
@@ -59,7 +84,7 @@ namespace CancerKeywords
             LastID = IDs[IDs.Length-1];
             string URL = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + idString + "&retmode=text&rettype=abstract";
 
-            //In order to allow other resources to function while this one is trying to fetch the abstract, a new thread is created for each abstract.
+            //In order to allow other resources to function while this one is trying to fetch the abstract, a new thread is created for each URL.
             Thread myNewThread = new Thread(() => getData(URL));
             myNewThread.Start();
         }

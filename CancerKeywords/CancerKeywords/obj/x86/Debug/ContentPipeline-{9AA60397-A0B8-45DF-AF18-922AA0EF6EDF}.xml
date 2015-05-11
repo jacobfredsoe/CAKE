@@ -7,7 +7,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\StandardFont.xnb</Output>
+      <Output>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\StandardFont.xnb</Output>
       <Time>2014-11-21T09:23:59.5271562+01:00</Time>
     </Item>
     <Item>
@@ -16,8 +16,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\BubbleTexture.xnb</Output>
+      <Output>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\BubbleTexture.xnb</Output>
       <Time>2014-11-20T09:06:15.6506401+01:00</Time>
+    </Item>
+    <Item>
+      <Source>BubbleTexture2.png</Source>
+      <Name>BubbleTexture2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\BubbleTexture2.xnb</Output>
+      <Time>2015-05-04T15:45:31.5706727+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -26,10 +35,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywordsContent\</RootDirectory>
-      <LoggerRootDirectory>H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\</LoggerRootDirectory>
-      <IntermediateDirectory>H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>H:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywordsContent\</RootDirectory>
+      <LoggerRootDirectory>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\</LoggerRootDirectory>
+      <IntermediateDirectory>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>U:\Visual Studio 2013\C#\Projects\CancerKeywords\CancerKeywords\CancerKeywords\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

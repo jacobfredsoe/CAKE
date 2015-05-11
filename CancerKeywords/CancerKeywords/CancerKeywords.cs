@@ -32,8 +32,11 @@ namespace CancerKeywords
         List<int> IDs;
         int batchSize;
         ControlForm controlForm;
+        string[] cancerTypes;
+        bool canClick = true;
+        AbstractViewer abstractViewer;
 
-        public CancerKeywords(ControlForm controlForm) //CAncerKEywords (CAKE)
+        public CancerKeywords() //CAncerKEywords (CAKE)
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 800;
@@ -41,7 +44,6 @@ namespace CancerKeywords
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
 
-            this.controlForm = controlForm;
         }
 
         /// <summary>
@@ -53,6 +55,60 @@ namespace CancerKeywords
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            abstractViewer = new AbstractViewer();
+            abstractViewer.Show();
+
+            controlForm = new ControlForm();
+            controlForm.Show();
+
+            //List of potentional cancer types
+            cancerTypes = new string[] {"adenocarcinoma",
+                                        "adrenocortical",
+                                        "astrocytic",
+                                        "bladder",
+                                        "brain",
+                                        "breast",
+                                        "colerectal",
+                                        "colon",
+                                        "colorectal",
+                                        "dysplasia",
+                                        "embryonal",
+                                        "endometrial",
+                                        "endometrioid ",
+                                        "epithelial",
+                                        "esophageal",
+                                        "fibrosarcoma",
+                                        "gallbladder",
+                                        "gastric",
+                                        "gastrointestinal",
+                                        "hepatic",
+                                        "hapatocellular",
+                                        "hepatocellular",
+                                        "intestine",
+                                        "intraepithelial",
+                                        "liver",
+                                        "lung",
+                                        "mammary",
+                                        "mediastinal",
+                                        "melanoma",
+                                        "mesenchymal",
+                                        "nasopharyngeal",
+                                        "neuroendocrine",
+                                        "ovarian",
+                                        "pancreatic",
+                                        "papillary",
+                                        "pituitary",
+                                        "prostate",
+                                        "rectal",
+                                        "renal",
+                                        "retinoblastoma",
+                                        "squamous",
+                                        "testicular",
+                                        "thymic",
+                                        "thyroid",
+                                        "tonsillar",
+                                        "urothelial"};
 
             base.Initialize();
         }
@@ -81,6 +137,7 @@ namespace CancerKeywords
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            
         }
 
         /// <summary>
@@ -97,7 +154,7 @@ namespace CancerKeywords
             // TODO: Add your update logic here
             base.Update(gameTime);
 
-            if(!controlForm.isAlive)
+            if(!controlForm.isAlive || !abstractViewer.isAlive)
             {
                 this.Exit();
             }
@@ -140,41 +197,40 @@ namespace CancerKeywords
                 }
             }
 
+
             //If the abstract fetcher is done and the types have been extracted, add the new cancer types
             if (IDs.Count != 0 && !abstractFetcher.IsWorking() && !gotTypes)
             {
-                //Split abstracts
-                string[] abs = System.Text.RegularExpressions.Regex.Split(abstractFetcher.getAbstractText(), "PMID: ");
+                Dictionary<int, string> abs = abstractFetcher.getAbstractKvP();
 
-                //Get types for each abstract
-                List<string> types = new List<string>();
-                for(int i = 0; i < abs.Length -1; i++)
+                foreach(KeyValuePair<int, string> kvp in abs)
                 {
-                    types.AddRange(Misc.getCancerTypes(abs[i]));
-                }
-                
-                //Convert types into bubbles
-                foreach(string type in types)
-                {
-                    if (Misc.isInCancerList(type)) //If it is a cancer
+                    List<string> types = Misc.getCancerTypes(kvp.Value);
+
+                    foreach (string type in types)
                     {
-                        if(cancerBubbles.ContainsKey(type)) //And the bubble already exists, add 1 to the bubble
+                        if (Misc.isInCancerList(type, cancerTypes)) //If it is a cancer
                         {
-                            cancerBubbles[type].addCase();
+                            if (cancerBubbles.ContainsKey(type)) //And the bubble already exists, add 1 to the bubble
+                            {
+                                cancerBubbles[type].addCase(kvp.Key);
+                            }
+                            else //Else create a new bubble for the cancer
+                            {
+                                cancerBubbles.Add(type, new CancerBubble(bubbleTexture, stdFont, type, 300, keywordBubble));
+                                cancerBubbles[type].Angle = ran.Next(0, 360);
+                                cancerBubbles[type].addCase(kvp.Key);
+                            }
+                            keywordBubble.addCase(); //Add one to the total number
                         }
-                        else //Else create a new bubble for the cancer
-                        {
-                            cancerBubbles.Add(type, new CancerBubble(bubbleTexture, stdFont, type, 300, keywordBubble));
-                            cancerBubbles[type].Angle = ran.Next(0, 360);
-                            cancerBubbles[type].addCase();
-                        }
-                        keywordBubble.addCase(); //Add one to the total number
                     }
                 }
 
-                //Work is done
+                //Jobs done!
                 gotTypes = true;
+                controlForm.postResult(cancerBubbles);
             }
+
 
             //Check if any bubbles are colliding and update the size of the biggest bubble
             if (IDs.Count != 0)
@@ -199,15 +255,50 @@ namespace CancerKeywords
                 keywordBubble.highestCount = maxCount;
                 keywordBubble.Update(gameTime);
 
+                MouseState mouse = Mouse.GetState();
+                Vector2 mouseLocation = new Vector2(mouse.X, mouse.Y);
+
                 foreach (KeyValuePair<string, CancerBubble> kvp in cancerBubbles)
                 {
                     kvp.Value.Update(gameTime);
+
+                    //If mouse is over the bubble
+                    if (Vector2.Distance(kvp.Value.getCenter(), mouseLocation) <= kvp.Value.Size / 2)
+                    {
+                        //And is clicked, select it
+                        if(mouse.LeftButton == ButtonState.Pressed && canClick)
+                        {
+                            setSelected(kvp.Key);
+                            canClick = false;
+                        }
+                    }
                 }
 
-                controlForm.postResult(Misc.formatScores(cancerBubbles));
+                
             }
+
+            abstractViewer.sendAbstracts(cancerBubbles);
+            if (Mouse.GetState().LeftButton == ButtonState.Released) canClick = true;
         }
 
+        /// <summary>
+        /// Selectes the bubble with the given name
+        /// </summary>
+        /// <param name="bubblename">Name of the bublble</param>
+        public void setSelected(string bubblename)
+        {
+            foreach (KeyValuePair<string, CancerBubble> kvp in cancerBubbles)
+            {
+                if(kvp.Key.Equals(bubblename))
+                {
+                    kvp.Value.Selected = true;
+                }
+                else
+                {
+                    kvp.Value.Selected = false;
+                }
+            }
+        }
 
         /// <summary>
         /// Fetches the abstact IDs from a given pubmed search

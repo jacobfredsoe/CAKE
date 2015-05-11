@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CancerKeywords
 {
-    class TextBubble
+    public class TextBubble
     {
         public Texture2D Texture { get; set; }
         public int Size { get; set; }

@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace CancerKeywords
 {
@@ -46,9 +45,13 @@ namespace CancerKeywords
             return (int)numericUpDown1.Value;
         }
 
-        public void postResult(string result)
+        internal void postResult(SortedDictionary<string, CancerBubble> data)
         {
-            textBox2.Text = result;
+            List<CancerBubble> cancerBubblesList = data.Values.ToList();
+
+            cancerBubblesList.Sort();
+
+            dataGridView1.DataSource = cancerBubblesList.Select(o => new { Name = o.Text, Cases = o.Cases }).ToList();
         }
 
         private void ControlForm_FormClosing(object sender, FormClosingEventArgs e)

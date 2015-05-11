@@ -57,59 +57,11 @@ namespace CancerKeywords
         /// </summary>
         /// <param name="potentialCancer">a potential cancer type</param>
         /// <returns>True if the input string is on the list</returns>
-        public static bool isInCancerList(string potentialCancer)
+        public static bool isInCancerList(string potentialCancer, string[] cancerTypes)
         {
             potentialCancer = potentialCancer.ToLower();
 
-            //List of potentional cancer types
-            string[] knownTypes = new string[] {"adenocarcinoma",
-                                                "adrenocortical",
-                                                "astrocytic",
-                                                "bladder",
-                                                "brain",
-                                                "breast",
-                                                "colerectal",
-                                                "colon",
-                                                "colorectal",
-                                                "dysplasia",
-                                                "embryonal",
-                                                "endometrial",
-                                                "endometrioid ",
-                                                "epithelial",
-                                                "esophageal",
-                                                "fibrosarcoma",
-                                                "gallbladder",
-                                                "gastric",
-                                                "gastrointestinal",
-                                                "hepatic",
-                                                "hapatocellular",
-                                                "hepatocellular",
-                                                "intestine",
-                                                "intraepithelial",
-                                                "liver",
-                                                "lung",
-                                                "mammary",
-                                                "mediastinal",
-                                                "melanoma",
-                                                "mesenchymal",
-                                                "nasopharyngeal",
-                                                "neuroendocrine",
-                                                "ovarian",
-                                                "pancreatic",
-                                                "papillary",
-                                                "pituitary",
-                                                "prostate",
-                                                "rectal",
-                                                "renal",
-                                                "retinoblastoma",
-                                                "squamous",
-                                                "testicular",
-                                                "thymic",
-                                                "thyroid",
-                                                "tonsillar",
-                                                "urothelial"};
-
-            return knownTypes.Contains(potentialCancer);
+            return cancerTypes.Contains(potentialCancer);
         }
 
         /// <summary>
@@ -119,13 +71,17 @@ namespace CancerKeywords
         /// <returns>A string with the different bubbles and their score</returns>
         public static string formatScores(SortedDictionary<string, CancerBubble> cancerBubbles)
         {
+            List<CancerBubble> cancerBubblesList = cancerBubbles.Values.ToList();
+
+            cancerBubblesList.Sort();
+
             string result = "";
 
-            foreach (KeyValuePair<string, CancerBubble> kvp in cancerBubbles)
+            foreach (CancerBubble cBubble in cancerBubblesList)
             {
-                result += kvp.Key + ": " + kvp.Value.Cases + "\r\n";
+                result += cBubble.Text + ": " + cBubble.Cases + "\r\n";
             }
-
+            
             return result;
         }
 

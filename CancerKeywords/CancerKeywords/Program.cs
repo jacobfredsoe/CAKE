@@ -7,18 +7,15 @@ namespace CancerKeywords
 #if WINDOWS || XBOX
     static class Program
     {
-        private static ControlForm controlForm;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         /// 
 
+        [STAThread]
         static void Main(string[] args)
         {
-            controlForm = new ControlForm();
-            controlForm.Show();
-
-            CancerKeywords game = new CancerKeywords(controlForm);
+            CancerKeywords game = new CancerKeywords();
             game.Run();
         }
     }
