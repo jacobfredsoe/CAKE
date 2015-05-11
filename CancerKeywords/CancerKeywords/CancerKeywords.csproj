@@ -75,11 +75,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractFetcher.cs" />
-    <Compile Include="AbstractViewer.cs">
+    <Compile Include="AbstractHandling\AbstractFetcher.cs" />
+    <Compile Include="AbstractHandling\AbstractViewer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbstractViewer.Designer.cs">
+    <Compile Include="AbstractHandling\AbstractViewer.Designer.cs">
       <DependentUpon>AbstractViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="BoundingCircle.cs" />
@@ -132,7 +132,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AbstractViewer.resx">
+    <EmbeddedResource Include="AbstractHandling\AbstractViewer.resx">
       <DependentUpon>AbstractViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlForm.resx">
