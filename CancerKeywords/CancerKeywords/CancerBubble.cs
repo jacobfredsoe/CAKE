@@ -15,7 +15,7 @@ namespace CancerKeywords
         public float Angle { get; set; }
         private const int MIN_SIZE = 20;
         public List<int> abstractIDs { get; set; }
-        public bool Selected { get; set; }
+        public bool selected = false;
 
         public CancerBubble(Texture2D texture, SpriteFont stdFont, string name, int distance, TextBubble anchor) : base(texture, stdFont)
         {
@@ -28,7 +28,6 @@ namespace CancerKeywords
             Angle = 0.0f;
             Cases = 0;
             color = Color.White;
-            Selected = false;
         }
 
         /// <summary>
@@ -39,6 +38,10 @@ namespace CancerKeywords
         {
             abstractIDs.Add(abstractID);
             base.Cases = abstractIDs.Count;
+            if (selected)
+            {
+                CancerKeywords.abstractAdded(abstractID);
+            }
         }
 
         /// <summary>
@@ -153,6 +156,17 @@ namespace CancerKeywords
             TextBubble otherCancerBubble = (TextBubble)otherBubble;
 
             return otherCancerBubble.Cases - this.Cases;
+        }
+
+        public bool Selected
+        {
+            get { return selected; }
+
+            set
+            {
+                if(value) CancerKeywords.selectedChanged(this);
+                selected = value;
+            }
         }
 
         /// <summary>

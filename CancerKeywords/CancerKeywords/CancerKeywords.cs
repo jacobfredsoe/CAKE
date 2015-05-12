@@ -26,7 +26,7 @@ namespace CancerKeywords
         bool gotTypes = false;
         Texture2D bubbleTexture;
         TextBubble keywordBubble;
-        SortedDictionary<string, CancerBubble> cancerBubbles;
+        static SortedDictionary<string, CancerBubble> cancerBubbles;
         string progress;
         Random ran;
         List<int> IDs;
@@ -34,7 +34,7 @@ namespace CancerKeywords
         ControlForm controlForm;
         string[] cancerTypes;
         bool canClick = true;
-        AbstractViewer abstractViewer;
+        static AbstractViewer abstractViewer;
 
         public CancerKeywords() //CAncerKEywords (CAKE)
         {
@@ -296,7 +296,16 @@ namespace CancerKeywords
                     kvp.Value.Selected = false;
                 }
             }
-            abstractViewer.sendAbstracts(cancerBubbles);
+        }
+
+        internal static void selectedChanged(CancerBubble cbubble)
+        {
+            abstractViewer.sendAbstracts(cbubble);
+        }
+
+        internal static void abstractAdded(int pubmedID)
+        {
+            abstractViewer.updateAbstracts(pubmedID);
         }
 
         /// <summary>

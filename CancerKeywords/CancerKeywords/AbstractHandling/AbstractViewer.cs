@@ -12,7 +12,7 @@ namespace CancerKeywords
     public partial class AbstractViewer : Form
     {
         private bool isAlive = true;
-        private List<AbstractHandling.AbstractProxy> abstracts = new List<AbstractHandling.AbstractProxy>();
+        private BindingList<AbstractHandling.AbstractProxy> abstracts;
 
         public AbstractViewer()
         {
@@ -20,24 +20,28 @@ namespace CancerKeywords
             isAlive = true;
         }
 
-        internal void sendAbstracts(SortedDictionary<string, CancerBubble> data)
+        internal void sendAbstracts(CancerBubble selectedBubble)
         {
-            if(data != null)
+            if (selectedBubble != null)
             {
-                List<CancerBubble> selectedBubble = data.Values.ToList().Where(cbubble => cbubble.Selected).ToList();
+                abstracts = new BindingList<AbstractHandling.AbstractProxy>();
 
-                if (selectedBubble.Count > 0)
+                foreach(int pubmedID in selectedBubble.abstractIDs)
                 {
-                    abstracts = new List<AbstractHandling.AbstractProxy>();
-
-                    foreach(int pubmedID in selectedBubble[0].abstractIDs)
-                    {
-                        abstracts.Add(new AbstractHandling.AbstractProxy(pubmedID));
-                    }
-
-                    listBox1.DataSource = selectedBubble[0].abstractIDs;
+                    abstracts.Add(new AbstractHandling.AbstractProxy(pubmedID));
                 }
+
+                listBox1.DataSource = abstracts;
+                listBox1.DisplayMember = "pubmedID";
             }
+        }
+
+        public void updateAbstracts(int pubmedID)
+        {
+            abstracts.Add(new AbstractHandling.AbstractProxy(pubmedID));
+            listBox1.DataSource = null;
+            listBox1.DisplayMember = "pubmedID";
+            listBox1.DataSource = abstracts;
         }
 
         private void AbstractViewer_FormClosing(object sender, FormClosingEventArgs e)
@@ -47,7 +51,7 @@ namespace CancerKeywords
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = abstracts[listBox1.SelectedIndex].AbstractText;
+            if(listBox1.SelectedIndex != -1) richTextBox1.Text = abstracts[listBox1.SelectedIndex].AbstractText;
         }
 
         public bool IsAlive
