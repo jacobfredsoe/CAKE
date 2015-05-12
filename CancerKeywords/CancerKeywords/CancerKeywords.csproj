@@ -75,7 +75,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractHandling\AbstractPaper.cs" />
     <Compile Include="AbstractHandling\AbstractFetcher.cs" />
+    <Compile Include="AbstractHandling\AbstractInterface.cs" />
+    <Compile Include="AbstractHandling\AbstractProxy.cs" />
     <Compile Include="AbstractHandling\AbstractViewer.cs">
       <SubType>Form</SubType>
     </Compile>

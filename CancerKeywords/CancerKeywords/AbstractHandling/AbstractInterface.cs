@@ -7,5 +7,16 @@ namespace CancerKeywords.AbstractHandling
 {
     interface AbstractInterface
     {
+        string AbstractText
+        {
+            get;
+        }
+
+        int PubmedID
+        {
+            get;
+        }
+
+
     }
 }

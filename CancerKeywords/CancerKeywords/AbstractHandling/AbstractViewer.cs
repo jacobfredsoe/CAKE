@@ -11,7 +11,8 @@ namespace CancerKeywords
 {
     public partial class AbstractViewer : Form
     {
-        public bool isAlive;
+        private bool isAlive = true;
+        private List<AbstractHandling.AbstractProxy> abstracts = new List<AbstractHandling.AbstractProxy>();
 
         public AbstractViewer()
         {
@@ -23,9 +24,13 @@ namespace CancerKeywords
         {
             if(data != null)
             {
-                List<CancerBubble> selectedBubbles = data.Values.ToList().Where(cbubble => cbubble.Selected).ToList();
+                List<CancerBubble> selectedBubble = data.Values.ToList().Where(cbubble => cbubble.Selected).ToList();
 
-                if (selectedBubbles.Count > 0) listBox1.DataSource = selectedBubbles[0].abstractIDs;
+                if (selectedBubble.Count > 0)
+                {
+                    listBox1.DataSource = selectedBubble[0].abstractIDs;
+
+                }
             }
         }
 
@@ -39,6 +44,10 @@ namespace CancerKeywords
 
         }
 
+        public bool IsAlive
+        {
+            get { return isAlive; }
+        }
 
     }
 }

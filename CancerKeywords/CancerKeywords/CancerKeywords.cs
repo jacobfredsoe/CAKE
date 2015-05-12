@@ -154,7 +154,7 @@ namespace CancerKeywords
             // TODO: Add your update logic here
             base.Update(gameTime);
 
-            if(!controlForm.isAlive || !abstractViewer.isAlive)
+            if(!controlForm.isAlive || !abstractViewer.IsAlive)
             {
                 this.Exit();
             }
@@ -273,8 +273,6 @@ namespace CancerKeywords
                         }
                     }
                 }
-
-                
             }
 
             abstractViewer.sendAbstracts(cancerBubbles);
