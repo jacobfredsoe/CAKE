@@ -109,7 +109,13 @@ namespace CancerKeywords
             List<string> types = new List<string>();
             for (int i = 1; i < split.Length; i++)
             {
-                if (split[i].Equals("cancer") || split[i].Equals("cancers") || split[i].Equals("carcinoma") || split[i].Equals("carcinomas") || split[i].Equals("tumor") || split[i].Equals("tumors"))
+                if (split[i].Equals("cancer") || 
+                    split[i].Equals("cancers") || 
+                    split[i].Equals("carcinoma") || 
+                    split[i].Equals("carcinomas") || 
+                    split[i].Equals("tumor") || 
+                    split[i].Equals("tumors") ||
+                    split[i].Equals("adenocarcinoma"))
                 {
 
                     if (!types.Contains(split[i - 1]))

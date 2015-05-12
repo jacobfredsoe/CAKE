@@ -28,8 +28,14 @@ namespace CancerKeywords
 
                 if (selectedBubble.Count > 0)
                 {
-                    listBox1.DataSource = selectedBubble[0].abstractIDs;
+                    abstracts = new List<AbstractHandling.AbstractProxy>();
 
+                    foreach(int pubmedID in selectedBubble[0].abstractIDs)
+                    {
+                        abstracts.Add(new AbstractHandling.AbstractProxy(pubmedID));
+                    }
+
+                    listBox1.DataSource = selectedBubble[0].abstractIDs;
                 }
             }
         }
@@ -41,7 +47,7 @@ namespace CancerKeywords
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            richTextBox1.Text = abstracts[listBox1.SelectedIndex].AbstractText;
         }
 
         public bool IsAlive

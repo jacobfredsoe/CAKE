@@ -275,7 +275,7 @@ namespace CancerKeywords
                 }
             }
 
-            abstractViewer.sendAbstracts(cancerBubbles);
+            
             if (Mouse.GetState().LeftButton == ButtonState.Released) canClick = true;
         }
 
@@ -296,6 +296,7 @@ namespace CancerKeywords
                     kvp.Value.Selected = false;
                 }
             }
+            abstractViewer.sendAbstracts(cancerBubbles);
         }
 
         /// <summary>
