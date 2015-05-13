@@ -7,7 +7,7 @@ namespace CancerKeywords.AbstractHandling
 {
     class AbstractProxy : AbstractInterface
     {
-        private AbstractPaper realAbstract;
+        private AbstractPaper realAbstract = null;
         private int pubmedID;
 
         public AbstractProxy(int pubmedID)
@@ -32,13 +32,18 @@ namespace CancerKeywords.AbstractHandling
         {
             get
             {
-                if (realAbstract == null)
-                {
-                    realAbstract = new AbstractPaper(pubmedID);
-                }
-
-                return realAbstract.PubmedID;
+                return pubmedID;
             }
+        }
+
+        public bool IsProxy
+        {
+            get { return realAbstract == null; }
+        }
+
+        public AbstractPaper RealAbstract
+        {
+            get { return realAbstract; }
         }
     }
 }

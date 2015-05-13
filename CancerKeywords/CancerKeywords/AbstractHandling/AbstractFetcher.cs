@@ -15,10 +15,12 @@ namespace CancerKeywords
         public int LastID { get; set; }
         private string abstractText;
         int[] currentIDs;
+        private bool isDone;
 
         public AbstractFetcher()
         {
             isWorking = false;
+            isDone = false;
             wc = new WebClient();
             LastID = 0;
             abstractText = "";
@@ -28,18 +30,26 @@ namespace CancerKeywords
         /// Is the fetcher currently in the progress of fetching an abstract
         /// </summary>
         /// <returns>True while trying to fetch abstract</returns>
-        public bool IsWorking()
+        public bool IsWorking
         {
-            return isWorking;
+            get { return isWorking; }
+        }
+
+        /// <summary>
+        /// Is true when the fetcher is done with its job
+        /// </summary>
+        public bool IsDone
+        {
+            get { return isDone; }
         }
 
         /// <summary>
         /// Returns the abstract text of all abstracts fetched as one big string
         /// </summary>
         /// <returns>The value currently stored as the abstract</returns>
-        public string getAbstractText()
+        public string AbstractText
         {
-            return abstractText;
+            get { return abstractText; }
         }
 
         /// <summary>
@@ -119,6 +129,7 @@ namespace CancerKeywords
             {
                 abstractText = result;
                 isWorking = false;
+                isDone = true;
             }
         }
     }

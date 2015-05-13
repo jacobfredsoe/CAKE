@@ -35,6 +35,7 @@ namespace CancerKeywords
         string[] cancerTypes;
         bool canClick = true;
         static AbstractViewer abstractViewer;
+        float timeSincelastUpdate = 500;
 
         public CancerKeywords() //CAncerKEywords (CAKE)
         {
@@ -179,7 +180,7 @@ namespace CancerKeywords
 
             //Keeping track of how many abstracts have been search and how many are left
             progress = "Processing abstract " + (currentID + 1) + " out of " + IDs.Count;
-            if (IDs.Count != 0 && !abstractFetcher.IsWorking() && abstractFetcher.LastID != IDs[currentID] && gotTypes)
+            if (IDs.Count != 0 && !abstractFetcher.IsWorking && abstractFetcher.LastID != IDs[currentID] && gotTypes)
             {
                 int batchMax = batchSize;
 
@@ -199,7 +200,7 @@ namespace CancerKeywords
 
 
             //If the abstract fetcher is done and the types have been extracted, add the new cancer types
-            if (IDs.Count != 0 && !abstractFetcher.IsWorking() && !gotTypes)
+            if (IDs.Count != 0 && !abstractFetcher.IsWorking && !gotTypes)
             {
                 Dictionary<int, string> abs = abstractFetcher.getAbstractKvP();
 
@@ -275,6 +276,8 @@ namespace CancerKeywords
                 }
             }
 
+            //Update the abstract viewer
+            updateAbstractViewer(gameTime);
             
             if (Mouse.GetState().LeftButton == ButtonState.Released) canClick = true;
         }
@@ -306,6 +309,11 @@ namespace CancerKeywords
         internal static void abstractAdded(int pubmedID)
         {
             abstractViewer.updateAbstracts(pubmedID);
+        }
+
+        internal static void updateAbstractViewer(GameTime gameTime)
+        {
+            abstractViewer.update(gameTime);
         }
 
         /// <summary>

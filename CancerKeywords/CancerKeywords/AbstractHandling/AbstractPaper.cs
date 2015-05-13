@@ -21,7 +21,7 @@ namespace CancerKeywords.AbstractHandling
         {
             get
             {
-                return fetcher.getAbstractText();
+                return fetcher.AbstractText;
             }
         }
 
@@ -31,6 +31,11 @@ namespace CancerKeywords.AbstractHandling
             {
                 return pubmedID;
             }
+        }
+
+        public AbstractFetcher Fetcher
+        {
+            get { return fetcher; }
         }
     }
 }
