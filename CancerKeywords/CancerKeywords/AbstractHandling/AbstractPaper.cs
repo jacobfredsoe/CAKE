@@ -10,6 +10,10 @@ namespace CancerKeywords.AbstractHandling
         private int pubmedID;
         private AbstractFetcher fetcher;
 
+        /// <summary>
+        /// Proxy pattern for abstract. Real subject
+        /// </summary>
+        /// <param name="pubmedID"></param>
         public AbstractPaper(int pubmedID)
         {
             this.pubmedID = pubmedID;
@@ -17,6 +21,9 @@ namespace CancerKeywords.AbstractHandling
             fetcher.fetchAbstract(new int[] { pubmedID });
         }
 
+        /// <summary>
+        /// Getter for abstract text
+        /// </summary>
         public string AbstractText
         {
             get
@@ -25,6 +32,9 @@ namespace CancerKeywords.AbstractHandling
             }
         }
 
+        /// <summary>
+        /// Getter for pudmed ID
+        /// </summary>
         public int PubmedID
         {
             get
@@ -33,6 +43,9 @@ namespace CancerKeywords.AbstractHandling
             }
         }
 
+        /// <summary>
+        /// Getter for the abstractFetcher
+        /// </summary>
         public AbstractFetcher Fetcher
         {
             get { return fetcher; }

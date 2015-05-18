@@ -301,16 +301,28 @@ namespace CancerKeywords
             }
         }
 
+        /// <summary>
+        /// Allows the main program to the notified if a bubble has become selected
+        /// </summary>
+        /// <param name="cbubble">The selected bubble</param>
         internal static void selectedChanged(CancerBubble cbubble)
         {
             abstractViewer.sendAbstracts(cbubble);
         }
 
+        /// <summary>
+        /// Allows the main program to the notified if a bubble has added an abstract
+        /// </summary>
+        /// <param name="pubmedID">Pubmed ID of the abstract</param>
         internal static void abstractAdded(int pubmedID)
         {
-            abstractViewer.updateAbstracts(pubmedID);
+            abstractViewer.addAbstract(pubmedID);
         }
 
+        /// <summary>
+        /// Allows the main program to the notified if the abstract viewer should be updated
+        /// </summary>
+        /// <param name="gameTime"></param>
         internal static void updateAbstractViewer(GameTime gameTime)
         {
             abstractViewer.update(gameTime);

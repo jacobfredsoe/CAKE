@@ -17,6 +17,9 @@ namespace CancerKeywords
         int[] currentIDs;
         private bool isDone;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AbstractFetcher()
         {
             isWorking = false;
