@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace CancerKeywords
 {
@@ -111,6 +112,8 @@ namespace CancerKeywords
                 {
                     fetcherDone = false;
                 }
+
+
             }
         }
 
@@ -120,6 +123,19 @@ namespace CancerKeywords
         public bool IsAlive
         {
             get { return isAlive; }
+        }
+
+        /// <summary>
+        /// Opens up the abstract in a browser
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LinkLabel.Link link = new LinkLabel.Link();
+            link.LinkData = "http://www.ncbi.nlm.nih.gov/pubmed/" + abstracts[listBox1.SelectedIndex].PubmedID;
+
+            Process.Start(link.LinkData as string);
         }
 
     }
